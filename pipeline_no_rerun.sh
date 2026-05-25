@@ -10,13 +10,13 @@
 # --- Configuration Variables ---
 
 # Define the base input path and the array of source directories.
-BASE_INPUT_PATH="../../ASSEMBLIES/"
-SOURCES=("DSI_100" "DSII_100_L2000" "REFERENCE_MASK") # All input sources for Step 1 & 2
-PCA_SOURCES=("DSI_100" "DSII_100_L2000")             # Sources to be included in Step 3 (PCA)
+BASE_INPUT_PATH="./TEST_DATA/"
+SOURCES=("DSI" "DSII" "DSII") # All input sources for Step 1 & 2
+PCA_SOURCES=("${SOURCES[@]:0:2}")             # Sources to be included in Step 3 (PCA)
 
-TARGET_DIR="${BASE_INPUT_PATH}/TARGET_SEQ"
+TARGET_DIR="TEST_DATA/DSII/"
 
-OUTPUT_BASE="../../OUTPUTS/VIRALM/DS_100_L_2000/"
+OUTPUT_BASE="TEST_OUTPUT/"
 
 # Define your output directories here.
 SPLIT_DIR="${OUTPUT_BASE}/01_split_sequences"
@@ -255,7 +255,7 @@ for layer in "${LAYERS_TO_MONITOR[@]}"; do
             --reference_name "$reference" \
             --blast_dir "$BLAST_DIR" \
             --output_file "$OUTPUT_FILE" \
-	    --labels "DSI_100" "DSII_100_L2000" "REFERENCE_MASK"
+	    --labels $SOURCES[1] $SOURCES[2] $SOURCES[3]
 	echo $SOURCES
 
         if [ $? -ne 0 ]; then
